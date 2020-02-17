@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProAgil.API.Data;
+using ProAgil.API.Model;
 
 namespace ProAgil.API.Controllers
 {
@@ -10,18 +13,31 @@ namespace ProAgil.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        public readonly DataContext  _context;
+        public ValuesController(DataContext context)
+        {
+            this._context = context;
+        }
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var results = _context.Eventos.ToList();
+                return Ok(results);
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status501NotImplemented,"Bancos de dados falhou");
+            }
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            return Ok(_context.Eventos.FirstOrDefault(x => x.EventoId == id));
         }
 
         // POST api/values
