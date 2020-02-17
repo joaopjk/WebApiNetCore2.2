@@ -31,7 +31,7 @@ namespace ProAgil.API
             services.AddDbContext<DataContext>(x =>
              x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-           services.AddSwaggerGen(c=> { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Employee API", Version = "V1" });  
+            services.AddSwaggerGen(c=> { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Employee API", Version = "V1" });  
             }); 
         }
 

@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProAgil.API.Data;
 using ProAgil.API.Model;
+using ProAgil.API.Util;
 
 namespace ProAgil.API.Controllers
 {
@@ -20,25 +22,32 @@ namespace ProAgil.API.Controllers
         }
         // GET api/values
         [HttpGet]
-        public IActionResult Get()
+        public  async Task<IActionResult> Get()
         {
             try
             {
-                var results = _context.Eventos.ToList();
+                var results = await _context.Eventos.ToListAsync();
                 return Ok(results);
             }
             catch (System.Exception)
             {
-                return this.StatusCode(StatusCodes.Status501NotImplemented,"Bancos de dados falhou");
+                return this.StatusCode(StatusCodes.Status501NotImplemented,Constantes.BancoDadosFalhou);
             }
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return Ok(_context.Eventos.FirstOrDefault(x => x.EventoId == id));
-        }
+            try{
+                var results =  await _context.Eventos.FirstOrDefaultAsync(x => x.EventoId == id);
+                return Ok(results);
+            }
+            catch(System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status501NotImplemented,Constantes.BancoDadosFalhou);
+            }
+    }
 
         // POST api/values
         [HttpPost]
