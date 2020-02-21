@@ -30,6 +30,7 @@ namespace ProAgil.API
         {
             services.AddDbContext<DataContext>(x =>
              x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerGen(c=> { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Employee API", Version = "V1" });  
             }); 
@@ -52,6 +53,7 @@ namespace ProAgil.API
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseMvc();
         }
     }
