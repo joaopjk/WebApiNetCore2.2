@@ -8,11 +8,12 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./Eventos.component.css']
 })
 export class EventosComponent implements OnInit {
+  // tslint:disable-next-line: variable-name
   _filtroLista: string;
-  get filtroLista(){
+  get filtroLista() {
     return this._filtroLista;
   }
-  set filtroLista(value:string){
+  set filtroLista(value: string) {
     this._filtroLista = value;
     this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
   }
@@ -28,10 +29,10 @@ export class EventosComponent implements OnInit {
   alternarImagem(){
     this.mostrarImagem = !this.mostrarImagem;
   }
-  filtrarEventos(filtrarPor: string):any{
+  filtrarEventos(filtrarPor: string): any {
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.eventos.filter(
-      evento => evento.tema.toLocaleLowerCase().indexOf(filtrarPor)!== -1
+      evento => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1
     );
   }
   getEventos() {
