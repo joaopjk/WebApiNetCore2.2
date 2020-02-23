@@ -17,7 +17,7 @@ export class EventosComponent implements OnInit {
     this._filtroLista = value;
     this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
   }
-  eventosFiltrados: any = []
+  eventosFiltrados: any = [];
   eventos: any = [] ;
   imagemLargura = 50;
   imagemMargen = 2;
@@ -36,8 +36,11 @@ export class EventosComponent implements OnInit {
     );
   }
   getEventos() {
-    this.http.get('http://localhost:5000/api/values').subscribe(
-    response => {this.eventos = response; }, error  =>  {
+    this.http.get('http://localhost:5000/api/values').subscribe(response => {
+      this.eventos = response;
+      this.eventosFiltrados = this.eventos;
+      console.log(response);
+    }, error => {
       console.log(error);
     });
   }
