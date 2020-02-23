@@ -14,7 +14,7 @@ namespace ProAgil.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        public readonly DataContext  _context;
+        public readonly DataContext _context;
         public ValuesController(DataContext context)
         {
             this._context = context;
